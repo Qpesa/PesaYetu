@@ -1,6 +1,6 @@
 <?php
 return array(
-        'api' => 'http://127.0.0.1:11898',
-        'blockTargetInterval' => 30,
-        'coinUnits' => 100
+        'api' => 'http://134.209.17.160:15341',
+        'blockTargetInterval' => 120,
+        'coinUnits' => 100000000
 );
