@@ -1636,7 +1636,7 @@ var cnUtil = (function(initConfig) {
     config.coinUnits = new JSBigInt(10).pow(config.coinUnitPlaces);
 
     var HASH_STATE_BYTES = 200;
-    var HASH_SIZE = 32;
+    var HASH_SIZE = 64;
     var ADDRESS_CHECKSUM_SIZE = 4;
     var CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = config.addressPrefix;
     var UINT64_MAX = new JSBigInt(2).pow(64);
@@ -1651,15 +1651,15 @@ var cnUtil = (function(initConfig) {
     var TX_EXTRA_NONCE_TAGS = {
         PAYMENT_ID: '00'
     };
-    var KEY_SIZE = 32;
+    var KEY_SIZE = 64;
     var STRUCT_SIZES = {
         GE_P3: 160,
         GE_P2: 120,
         GE_P1P1: 160,
         GE_CACHED: 160,
-        EC_SCALAR: 32,
-        EC_POINT: 32,
-        KEY_IMAGE: 32,
+        EC_SCALAR: 64,
+        EC_POINT: 64,
+        KEY_IMAGE: 64,
         GE_DSMP: 160 * 8, // ge_cached * 8
         SIGNATURE: 64 // ec_scalar * 2
     };
@@ -1701,23 +1701,23 @@ var cnUtil = (function(initConfig) {
 
     this.sc_reduce32 = function(hex) {
         var input = hextobin(hex);
-        if (input.length !== 32) {
+        if (input.length !== 64) {
             throw "Invalid input length";
         }
-        var mem = Module._malloc(32);
+        var mem = Module._malloc(64);
         Module.HEAPU8.set(input, mem);
         Module.ccall('sc_reduce32', 'void', ['number'], [mem]);
-        var output = Module.HEAPU8.subarray(mem, mem + 32);
+        var output = Module.HEAPU8.subarray(mem, mem + 64);
         Module._free(mem);
         return bintohex(output);
     };
 
     this.ge_scalarmult_base = function(hex) {
         var input = hextobin(hex);
-        if (input.length !== 32) {
+        if (input.length !== 64) {
             throw "Invalid input length";
         }
-        var input_mem = Module._malloc(32);
+        var input_mem = Module._malloc(64);
         Module.HEAPU8.set(input, input_mem);
         var ge_p3 = Module._malloc(STRUCT_SIZES.GE_P3);
         Module.ccall('ge_scalarmult_base', 'void', ['number', 'number'], [ge_p3, input_mem]);
@@ -1734,9 +1734,9 @@ var cnUtil = (function(initConfig) {
         }
         var ge_p3 = Module._malloc(STRUCT_SIZES.GE_P3);
         Module.HEAPU8.set(input, ge_p3);
-        var out_mem = Module._malloc(32);
+        var out_mem = Module._malloc(64);
         Module.ccall('ge_p3_tobytes', 'void', ['number', 'number'], [out_mem, ge_p3]);
-        var output = Module.HEAPU8.subarray(out_mem, out_mem + 32);
+        var output = Module.HEAPU8.subarray(out_mem, out_mem + 64);
         Module._free(ge_p3);
         Module._free(out_mem);
         return bintohex(output);
@@ -1813,7 +1813,7 @@ var cnUtil = (function(initConfig) {
         var keys = {};
         var first;
         if (seed.length !== 64) {
-            first = this.keccak(seed, seed.length / 2, 32);
+            first = this.keccak(seed, seed.length / 2, 64);
         } else {
             first = seed;
         }
@@ -1839,7 +1839,7 @@ var cnUtil = (function(initConfig) {
         var keys = {};
         var first;
         if (seed.length !== 64) {
-            first = this.keccak(seed, seed.length / 2, 32);
+            first = this.keccak(seed, seed.length / 2, 64);
         } else {
             first = seed;
         }
