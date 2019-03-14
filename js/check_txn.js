@@ -3,8 +3,8 @@ function pubKeyFromExtra(bin){
     while (bin.length > 0 && bin[0] == 0) {
         bin = bin.slice(1, bin.length);
     }    
-    if (bin[0] == 1 && bin.length >= 65) {
-        pub = bin.slice(1,65);
+    if (bin[0] == 1 && bin.length >= 64) {
+        pub = bin.slice(1,64);
     }
     return pub;
 }
