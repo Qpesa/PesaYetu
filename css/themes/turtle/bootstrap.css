@@ -1100,7 +1100,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #2ecc71;
+  color: #660066;
   text-decoration: none;
 }
 a:hover,
@@ -5693,7 +5693,7 @@ button.list-group-item-danger.active:focus {
 }
 .panel-default > .panel-heading {
   color: #1d1d1d;
-  background-color: #2ecc71;
+  background-color: #660066;
   border-color: rgba(0, 0, 0, 0.6);
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
@@ -6778,7 +6778,7 @@ button.close {
         background-color: #1d1d1d;
 }
 .navbar-default .navbar-brand {
-    color: #2ecc71; 
+    color: #660066; 
 }
 
 .navbar-default .navbar-nav > li > a:hover {
@@ -6803,7 +6803,7 @@ button.close {
   background: #435B4E;
 }
 .btn-primary {
-  background: #2ecc71;
+  background: #660066;
  }
 .btn-primary:hover {
 background: #faf;
